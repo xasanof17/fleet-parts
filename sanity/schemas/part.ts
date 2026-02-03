@@ -1,0 +1,260 @@
+import { defineField, defineType } from "sanity";
+
+export const part = defineType({
+  name: "part",
+  title: "Fleet Part",
+  type: "document",
+  groups: [
+    { name: "details", title: "Details", default: true },
+    { name: "pricing", title: "Pricing" },
+    { name: "media", title: "Media" },
+    { name: "seo", title: "SEO" },
+  ],
+  fields: [
+    defineField({
+      name: "title",
+      title: "Part Name",
+      type: "string",
+      group: "details",
+      validation: (Rule) => Rule.required().min(3).max(100),
+    }),
+    defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      group: "details",
+      options: {
+        source: "title",
+        maxLength: 96,
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "category",
+      title: "Category",
+      type: "string",
+      group: "details",
+      options: {
+        list: [
+          { title: "Engine", value: "engine" },
+          { title: "Transmission", value: "transmission" },
+          { title: "Brakes", value: "brakes" },
+          { title: "Suspension", value: "suspension" },
+          { title: "Electrical", value: "electrical" },
+          { title: "Body", value: "body" },
+          { title: "Exhaust", value: "exhaust" },
+          { title: "Cooling", value: "cooling" },
+          { title: "Fuel System", value: "fuel-system" },
+          { title: "Other", value: "other" },
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "description",
+      title: "Description",
+      type: "text",
+      group: "details",
+      rows: 4,
+      validation: (Rule) => Rule.required().min(10).max(1000),
+    }),
+    defineField({
+      name: "compatibleTrucks",
+      title: "Compatible Trucks",
+      type: "array",
+      group: "details",
+      of: [{ type: "string" }],
+      options: {
+        layout: "tags",
+      },
+    }),
+    defineField({
+      name: "notes",
+      title: "Additional Notes",
+      type: "text",
+      group: "details",
+      rows: 3,
+    }),
+    defineField({
+      name: "images",
+      title: "Images",
+      type: "array",
+      group: "media",
+      of: [
+        {
+          type: "image",
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            {
+              name: "alt",
+              type: "string",
+              title: "Alternative Text",
+            },
+          ],
+        },
+      ],
+      options: {
+        layout: "grid",
+      },
+    }),
+    defineField({
+      name: "basePrice",
+      title: "Base Price (USD)",
+      type: "number",
+      group: "pricing",
+      validation: (Rule) => Rule.required().positive(),
+    }),
+    defineField({
+      name: "statePricing",
+      title: "State-Specific Pricing",
+      type: "array",
+      group: "pricing",
+      of: [
+        {
+          type: "object",
+          name: "statePrice",
+          title: "State Price",
+          fields: [
+            {
+              name: "stateCode",
+              title: "State Code",
+              type: "string",
+              options: {
+                list: [
+                  { title: "Alabama (AL)", value: "AL" },
+                  { title: "Alaska (AK)", value: "AK" },
+                  { title: "Arizona (AZ)", value: "AZ" },
+                  { title: "Arkansas (AR)", value: "AR" },
+                  { title: "California (CA)", value: "CA" },
+                  { title: "Colorado (CO)", value: "CO" },
+                  { title: "Connecticut (CT)", value: "CT" },
+                  { title: "Delaware (DE)", value: "DE" },
+                  { title: "Florida (FL)", value: "FL" },
+                  { title: "Georgia (GA)", value: "GA" },
+                  { title: "Hawaii (HI)", value: "HI" },
+                  { title: "Idaho (ID)", value: "ID" },
+                  { title: "Illinois (IL)", value: "IL" },
+                  { title: "Indiana (IN)", value: "IN" },
+                  { title: "Iowa (IA)", value: "IA" },
+                  { title: "Kansas (KS)", value: "KS" },
+                  { title: "Kentucky (KY)", value: "KY" },
+                  { title: "Louisiana (LA)", value: "LA" },
+                  { title: "Maine (ME)", value: "ME" },
+                  { title: "Maryland (MD)", value: "MD" },
+                  { title: "Massachusetts (MA)", value: "MA" },
+                  { title: "Michigan (MI)", value: "MI" },
+                  { title: "Minnesota (MN)", value: "MN" },
+                  { title: "Mississippi (MS)", value: "MS" },
+                  { title: "Missouri (MO)", value: "MO" },
+                  { title: "Montana (MT)", value: "MT" },
+                  { title: "Nebraska (NE)", value: "NE" },
+                  { title: "Nevada (NV)", value: "NV" },
+                  { title: "New Hampshire (NH)", value: "NH" },
+                  { title: "New Jersey (NJ)", value: "NJ" },
+                  { title: "New Mexico (NM)", value: "NM" },
+                  { title: "New York (NY)", value: "NY" },
+                  { title: "North Carolina (NC)", value: "NC" },
+                  { title: "North Dakota (ND)", value: "ND" },
+                  { title: "Ohio (OH)", value: "OH" },
+                  { title: "Oklahoma (OK)", value: "OK" },
+                  { title: "Oregon (OR)", value: "OR" },
+                  { title: "Pennsylvania (PA)", value: "PA" },
+                  { title: "Rhode Island (RI)", value: "RI" },
+                  { title: "South Carolina (SC)", value: "SC" },
+                  { title: "South Dakota (SD)", value: "SD" },
+                  { title: "Tennessee (TN)", value: "TN" },
+                  { title: "Texas (TX)", value: "TX" },
+                  { title: "Utah (UT)", value: "UT" },
+                  { title: "Vermont (VT)", value: "VT" },
+                  { title: "Virginia (VA)", value: "VA" },
+                  { title: "Washington (WA)", value: "WA" },
+                  { title: "West Virginia (WV)", value: "WV" },
+                  { title: "Wisconsin (WI)", value: "WI" },
+                  { title: "Wyoming (WY)", value: "WY" },
+                ],
+              },
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: "taxRate",
+              title: "Tax Rate (%)",
+              type: "number",
+              validation: (Rule) => Rule.required().min(0).max(20),
+            },
+            {
+              name: "baseOverride",
+              title: "Base Price Override (Optional)",
+              type: "number",
+              description: "Override the base price for this state",
+            },
+          ],
+          preview: {
+            select: {
+              stateCode: "stateCode",
+              taxRate: "taxRate",
+              baseOverride: "baseOverride",
+            },
+            prepare({ stateCode, taxRate, baseOverride }) {
+              return {
+                title: stateCode || "New State",
+                subtitle: baseOverride
+                  ? `$${baseOverride} + ${taxRate}% tax`
+                  : `${taxRate}% tax`,
+              };
+            },
+          },
+        },
+      ],
+    }),
+    defineField({
+      name: "seo",
+      title: "SEO Settings",
+      type: "object",
+      group: "seo",
+      fields: [
+        {
+          name: "metaTitle",
+          title: "Meta Title",
+          type: "string",
+          validation: (Rule) => Rule.max(60),
+        },
+        {
+          name: "metaDescription",
+          title: "Meta Description",
+          type: "text",
+          rows: 3,
+          validation: (Rule) => Rule.max(160),
+        },
+        {
+          name: "canonical",
+          title: "Canonical URL",
+          type: "url",
+        },
+      ],
+    }),
+    defineField({
+      name: "isArchived",
+      title: "Archived",
+      type: "boolean",
+      initialValue: false,
+      description: "Archive this part instead of deleting it",
+    }),
+  ],
+  preview: {
+    select: {
+      title: "title",
+      category: "category",
+      media: "images.0",
+      basePrice: "basePrice",
+    },
+    prepare({ title, category, media, basePrice }) {
+      return {
+        title,
+        subtitle: `${category} - $${basePrice}`,
+        media,
+      };
+    },
+  },
+});
