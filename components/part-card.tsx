@@ -16,8 +16,8 @@ export function PartCard({ part, price }: PartCardProps) {
 
   return (
     <Link href={`/parts/${part.slug}`}>
-      <Card className="group h-full overflow-hidden transition-all duration-200 hover:shadow-lg hover:border-foreground/20">
-        <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+      <Card className="group h-full overflow-hidden transition-all duration-200 hover:shadow-lg hover:border-foreground/20 pt-0">
+        <div className="relative aspect-4/3 overflow-hidden bg-muted">
           {imageUrl ? (
             <Image
               src={imageUrl || "/placeholder.svg"}
@@ -35,7 +35,7 @@ export function PartCard({ part, price }: PartCardProps) {
             {CATEGORY_LABELS[part.category] || part.category}
           </Badge>
         </div>
-        <CardContent className="p-4">
+        <CardContent className="px-3">
           <h3 className="text-balance font-semibold text-foreground line-clamp-2">
             {part.title}
           </h3>
@@ -57,7 +57,7 @@ export function PartCard({ part, price }: PartCardProps) {
             </div>
           )}
         </CardContent>
-        <CardFooter className="flex items-center justify-between border-t px-4 py-3">
+        <CardFooter className="flex items-center justify-between border-t px-4 py-1">
           {price ? (
             <div className="flex items-center gap-2">
               <span className="text-lg font-bold text-foreground">
