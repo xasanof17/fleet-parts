@@ -58,7 +58,7 @@ export default function RootLayout({
       <body className={`font-sans antialiased`}>
         {children}
         <footer className="bg-muted py-2 md:py-4 text-center text-xs sm:text-sm text-muted-foreground">
-          <div className="flex flex-col md:space-y-2 md:flex-row items-center justify-between max-w-6xl w-full mx-auto px-5">
+          <div className="flex flex-col space-y-2 md:space-y-0 md:flex-row items-center justify-between max-w-6xl w-full mx-auto px-5">
             <p>© {new Date().getFullYear()} Delta Prime - Fleet Parts - All rights reserved.</p>
             <p>Made with <b>George❤️</b></p>
           </div>
